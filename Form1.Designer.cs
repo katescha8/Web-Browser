@@ -153,6 +153,7 @@
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.List;
             this.listView1.Visible = false;
+            this.listView1.ItemActivate += new System.EventHandler(this.Tabs_select);
             // 
             // label1
             // 

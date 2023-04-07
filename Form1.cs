@@ -13,7 +13,7 @@ namespace Web_Browser
     public partial class Form1 : Form
     {
         List<string> history = new List<string>();
-        List<Uri> tabs = new List<Uri>();
+        List<string> tabs = new List<string>();
 
         public Form1()
         {
@@ -76,15 +76,19 @@ namespace Web_Browser
 
         private void button10_Click(object sender, EventArgs e)
         {
-            tabs.Add(webBrowser1.Url);
+            if (tabs.Contains(textBox1.Text)==false)
+            {
+                tabs.Add(textBox1.Text);
+            }
         }
 
         private void button11_Click(object sender, EventArgs e)
         {
-            tabs.Remove(webBrowser1.Url);
-            foreach (Uri item in tabs)
+            tabs.Remove(textBox1.Text);
+            listView1.Clear();
+            foreach (string item in tabs)
             {
-                listView1.Items.Add(item.ToString());
+                listView1.Items.Add(item);
             }
         }
 
@@ -94,22 +98,21 @@ namespace Web_Browser
             button8.Visible = false;
             label1.Text = "Закладки";
             label1.Visible = true;
+            listView1.Clear();
             listView1.Visible = true;
-            foreach (Uri item in tabs)
+            foreach (string item in tabs)
             {
-                listView1.Items.Add(item.ToString());
+                listView1.Items.Add(item);
             }
         }
-        // не получилось
-    //    private void Tabs_select(object sender, EventArgs e)
-    //    {
-    //        if(label1.Text=="Закладки")
-    //        {
-    //            webBrowser1.Navigate(listView1.SelectedItems);
-    //            listView1.Visible = false;
-    //            label1.Visible = false;
-    //            webBrowser1.Visible=true;
-    //        }
-    //    }
-    //}
+        private void Tabs_select(object sender, EventArgs e)
+        {
+            if(label1.Text=="Закладки")
+            {
+                webBrowser1.Navigate(listView1.SelectedItems[0].Text);
+                listView1.Visible = false;
+                webBrowser1.Visible=true;
+            }
+        }
+    }
 }
